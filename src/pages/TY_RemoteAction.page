@@ -1,0 +1,70 @@
+<apex:page controller="TY_RemoteAction">
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+  <script>
+  	var $j = jQuery.noConflict();
+	$j(function() {
+		TY_RemoteAction.sayHello('Word', function(result, event){
+			$j('#out').text(result);
+		});
+		
+		$j('#btnGetString').click(function () {
+			TY_RemoteAction.getString(function(result, event){
+				$j('#out').text(result);
+			});
+		});
+	});
+    function callActionCallback(result,event
+            //{
+            //  action : クラス名
+            //  method : メソッド名
+            //  result : 
+            //  status : true|false
+            //  tid    : 実行ID
+            //  type   : "rpc"|"exception"
+            // ----- 例外時のパラメータ -----
+            //  message: エラーメッセージ
+            //  vfTx   : 
+            //  where  : 
+            // ----- 通信エラー時のパラメータ -----
+            //  code   : "xhr"
+            //  data   : 
+            //  transaction : {...}
+            //  xhr    : {
+            //    argument   
+            //    isAbort    
+            //    isTimeout  
+            //    status     
+            //    statusText 
+            //    tId        
+            //  }
+            //}
+    ) {
+      alert(result);
+      /*
+      console.debug(result, Object.prototype.toString.call(result));
+      console.debug(event);
+      */
+    }
+    
+  </script>
+  <input type="button" id="btnGetString" value="getString" />
+  <!-- 
+  <br /><br />
+  <input type="button" onclick="TY_RemoteAction.getString(callActionCallback, {escape:true});" value="getString" />
+  <br /><br />
+  <input type="button" onclick="TY_RemoteAction.getHTML(callActionCallback, {escape: false});" value="getHTML" />
+  <br /><br />
+  <input type="button" onclick="TY_RemoteAction.getInteger(callActionCallback, {escape:true});" value="getInteger" />
+  <br /><br />
+  <input type="button" onclick="TY_RemoteAction.getBoolean(callActionCallback, {escape:true});" value="getBoolean" />
+  <br /><br />
+  <input type="button" onclick="TY_RemoteAction.getSObjects('Account', callActionCallback, {escape:true});" value="getAccounts" />
+  <br /><br />
+  <input type="button" onclick="TY_RemoteAction.getUserDefinedClass(callActionCallback, {escape:true});" value="getUserDefinedClass" />
+  <br /><br />
+  <input type="button" onclick="TY_RemoteAction.getUserDefinedEnum(callActionCallback, {escape:true});" value="getUserDefinedEnum" />
+  <br /><br />
+  <input type="button" onclick="TY_RemoteAction.errorAction(callActionCallback, {escape:true});" value="error action" />
+   -->
+  <div id="out"></div>
+</apex:page>

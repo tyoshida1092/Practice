@@ -1,0 +1,65 @@
+<apex:page controller="TY_QueryLocator" sidebar="false" readOnly="true">
+<apex:form >
+	<apex:outputpanel id="oP">
+	<apex:pageMessages id="pM"/>
+    <div>
+    	<!-- ContactList -->
+		<table>
+			<tbody>
+			<apex:repeat value="{!contacts}" var="cnt">
+			<tr>
+				<td>
+					<div>{!cnt.Name}</div>
+				</td>
+				<td>
+					<chatter:follow entityId="{!cnt.id}"></chatter:follow>
+				</td>
+			</tr>
+			</apex:repeat>
+			</tbody>
+		</table>
+		<!-- 以下 PageNator -->
+		<div class="paginator">
+			<div class="prevNextLinks">
+				<!-- 前へ（hasPrev=false） -->
+				<apex:outputPanel rendered="{!!hasPrevUsers}">
+					<span class="prevPageLink prevNext" ><img class="prevoff" src="/s.gif" />前へ</span>
+				</apex:outputPanel>
+				<!-- 前へ（hasPrev=true） -->
+				<apex:outputPanel rendered="{!hasPrevUsers}">
+					<span class="prevPageLink prevNext" >
+						<a href="#" class="dialogPaging" onClick="pagingPrev();">
+						<img class="prev" src="/s.gif" title="次へ" alt="次へ" />前へ
+						</a>
+					</span>
+				</apex:outputPanel>
+				<!-- 次へ（hasPrev=false） -->
+				<apex:outputPanel rendered="{!!hasNextUsers}">
+					<span class="nextPageLink prevNext">次へ<img class="nextoff" src="/s.gif" /></span>
+				</apex:outputPanel>
+				<!-- 次へ（hasPrev=true） -->
+				<apex:outputPanel rendered="{!hasNextUsers}">
+					<span class="nextPageLink prevNext">
+						<a href="#" class="dialogPaging" onClick="pagingNext();">次へ
+						<img class="next" src="/s.gif" title="次へ" alt="次へ" />
+						</a>
+					</span>
+				</apex:outputPanel>
+			</div>
+			<apex:actionfunction id="act_PagingPrev" action="{!pagingPrev}" status="searchcontactstatus" name="pagingPrev" rerender="oP,pM" />
+			<apex:actionfunction id="act_PagingNext" action="{!pagingNext}" status="searchcontactstatus" name="pagingNext" rerender="oP,pM" />
+	        <!-- ステータス表示 -->
+	        <apex:actionStatus id="searchcontactstatus" onstart="document.body.style.cursor='progress';" onstop="document.body.style.cursor='default';">
+	          <apex:facet name="start">
+	          	<div style="position:absolute;left:50%;text-align:center;">
+	            	<img id="LoadImg_1" src="{!$Resource.TY_Common}/img/TF_LoadingImageSmallArrows.gif"/>
+	            </div>
+	          </apex:facet>
+	          <apex:facet name="stop"/>
+	        </apex:actionStatus>
+	        <!-- /ステータス表示 -->
+		</div>
+    </div>
+    </apex:outputpanel>
+</apex:form>
+</apex:page>
